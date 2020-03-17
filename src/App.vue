@@ -2,7 +2,12 @@
   <div id="app">
     <el-container>
       <el-header style="background-color: #2c3e50">
-        <router-link to="/" tag="el-button" style="float: left; margin-top: 10px">回到主页</router-link>
+        <router-link
+          to="/"
+          tag="el-button"
+          style="float: left; margin-top: 10px"
+          >回到主页</router-link
+        >
       </el-header>
       <el-main>
         <router-view />
