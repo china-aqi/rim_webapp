@@ -9,7 +9,7 @@
           <el-col :span="11">
             <div class="grid-content bg-purple">
               <div class="grid-content bg-purple-light">
-                <RIMValueResult></RIMValueResult>
+                <RIMValueResult :result="getRimValue()"></RIMValueResult>
               </div>
               <el-row :gutter="10">
                 <el-col :span="12">
@@ -31,7 +31,35 @@
             <div class="grid-content bg-purple"></div>
           </el-col>
           <el-col :span="8">
-            <div class="grid-content bg-purple" v-if="rData != null"></div>
+            <div class="grid-content bg-purple" v-if="rData != null">
+              <RIMValueSlider
+                :config-info="get_configT1_T2()"
+                :caption-fn="
+                  v =>
+                    'EPS增长期' +
+                    v +
+                    '年， ROE均值回归期' +
+                    (rData['t1_t2'] - v) +
+                    '年'
+                "
+                @func="getValueT1T2FormSon"
+              ></RIMValueSlider>
+              <RIMValueSlider
+                :config-info="get_configR()"
+                :caption-fn="v => '投入资本回报率' + v * 100 + '%'"
+                @func="getValueRFormSon"
+              ></RIMValueSlider>
+              <RIMValueSlider
+                :config-info="get_configG1()"
+                :caption-fn="v => 'EPS增长期的增长率' + v * 100 + '%'"
+                @func="getValueG1FormSon"
+              ></RIMValueSlider>
+              <RIMValueSlider
+                :config-info="get_configG2()"
+                :caption-fn="v => '持续经营期剩余收益增长率' + v * 100 + '%'"
+                @func="getValueG2FormSon"
+              ></RIMValueSlider>
+            </div>
           </el-col>
         </el-row>
       </div>
@@ -43,9 +71,10 @@
 import axios from "axios";
 import RIMValueResult from "../components/RIMValueResult";
 import RIMValueTable from "../components/RIMValueTable";
+import RIMValueSlider from "../components/RIMValueSlider";
 export default {
   name: "Detail",
-  components: { RIMValueTable, RIMValueResult },
+  components: { RIMValueTable, RIMValueResult, RIMValueSlider },
   data() {
     return {
       rData: null,

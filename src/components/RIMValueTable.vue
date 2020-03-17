@@ -6,7 +6,6 @@
         :data="tblData"
         style="width: 95%"
         :show-header="false"
-        :cell-style="Center"
       >
         <el-table-column prop="des" label="标题" width="95"> </el-table-column>
         <el-table-column prop="value" label="数据" width="95">
