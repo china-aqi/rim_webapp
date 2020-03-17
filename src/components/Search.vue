@@ -60,7 +60,7 @@ export default {
     handleSelect(item) {
       console.log(item);
       this.$router.push({
-        path: "/rimvalue-new/",
+        path: "/RIMValue/",
         query: {
           code: this.state1.replace(/[^0-9]/gi, ""),
           name: this.state1.slice(0, this.state1.indexOf("("))
@@ -68,7 +68,7 @@ export default {
       });
     },
     jump() {
-      this.$router.push("/rimvalue-new/" + this.state1.replace(/[^0-9]/gi, ""));
+      this.$router.push("/RIMValue/" + this.state1.replace(/[^0-9]/gi, ""));
     }
   },
   mounted() {
