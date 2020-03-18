@@ -46,17 +46,17 @@
               ></RIMValueSlider>
               <RIMValueSlider
                 :config-info="get_configR()"
-                :caption-fn="v => '投入资本回报率' + v * 100 + '%'"
+                :caption-fn="v => '投入资本回报率' + (v * 100).toFixed(1) + '%'"
                 @func="getValueRFormSon"
               ></RIMValueSlider>
               <RIMValueSlider
                 :config-info="get_configG1()"
-                :caption-fn="v => 'EPS增长期的增长率' + v * 100 + '%'"
+                :caption-fn="v => 'EPS增长期的增长率' + (v * 100).toFixed(1) + '%'"
                 @func="getValueG1FormSon"
               ></RIMValueSlider>
               <RIMValueSlider
                 :config-info="get_configG2()"
-                :caption-fn="v => '持续经营期剩余收益增长率' + v * 100 + '%'"
+                :caption-fn="v => '持续经营期剩余收益增长率' + (v * 100).toFixed(1) + '%'"
                 @func="getValueG2FormSon"
               ></RIMValueSlider>
             </div>
@@ -152,7 +152,7 @@ export default {
           name: "g1",
           min: this.rData["g1_range"][0],
           max: this.rData["g1_range"][1],
-          step: 0.1,
+          step: 0.01,
           defaultValue: this.rData["g1_default"]
         };
       }
@@ -164,7 +164,7 @@ export default {
           name: "g2",
           min: this.rData["g2_range"][0],
           max: this.rData["g2_range"][1],
-          step: 0.01,
+          step: 0.005,
           defaultValue: this.rData["g2_default"]
         };
       }
