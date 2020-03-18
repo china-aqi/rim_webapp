@@ -81,10 +81,10 @@ export default {
       code: this.$route.query.code,
       name: this.$route.query.name,
       RValue: 0.1,
-      G1Value: 0,
-      G2Value: 0,
-      T1Value: 0,
-      T2Value: 0
+      G1Value: 0.1,
+      G2Value: 0.02,
+      T1Value: 7,
+      T2Value: 5
     };
   },
   methods: {
@@ -93,11 +93,11 @@ export default {
         return [
           {
             des: "BPS" + this.rData["last_bps"][0],
-            value: this.rData["last_bps"][1]
+            value: this.rData["last_bps"][1].toFixed(2)
           },
           {
             des: "EPS" + this.rData["last_eps"][0],
-            value: this.rData["last_eps"][1]
+            value: this.rData["last_eps"][1].toFixed(2)
           }
         ];
       }
