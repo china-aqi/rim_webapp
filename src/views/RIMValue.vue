@@ -28,7 +28,7 @@
             </div>
           </el-col>
           <el-col :span="5">
-            <div class="grid-content bg-purple"></div>
+            <div class="grid-content bg-purple"><RIMValueIntroduction></RIMValueIntroduction></div>
           </el-col>
           <el-col :span="8">
             <div class="grid-content bg-purple" v-if="rData != null">
@@ -72,9 +72,10 @@ import axios from "axios";
 import RIMValueResult from "../components/RIMValueResult";
 import RIMValueTable from "../components/RIMValueTable";
 import RIMValueSlider from "../components/RIMValueSlider";
+import RIMValueIntroduction from "../components/RIMValueIntroduction";
 export default {
   name: "Detail",
-  components: { RIMValueTable, RIMValueResult, RIMValueSlider },
+  components: {RIMValueIntroduction, RIMValueTable, RIMValueResult, RIMValueSlider },
   data() {
     return {
       rData: null,
@@ -140,7 +141,7 @@ export default {
           name: "r",
           min: this.rData["capital_return_rate_range"][0],
           max: this.rData["capital_return_rate_range"][1],
-          step: 0.01,
+          step: 0.005,
           defaultValue: this.rData["capital_return_rate_default"]
         };
       }
