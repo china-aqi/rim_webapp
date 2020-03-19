@@ -4,7 +4,7 @@
       class="inline-input"
       v-model="state1"
       :fetch-suggestions="querySearch"
-      placeholder="请输代码/公司名称/拼音简称"
+      placeholder="请输公司名称/公司代码/拼音简称"
       :trigger-on-focus="false"
       @select="handleSelect"
       style="width: 400px"
@@ -73,7 +73,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://106.15.137.244:80/securities")
+      .get("http://192.168.0.7:8001/securities")
       .then(this.handle_securities_4_combobox);
   }
 };

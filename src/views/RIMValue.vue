@@ -242,7 +242,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://106.15.137.244:80/v1.0/rim-proposal", {
+      .get("http://192.168.0.7:8001/v1.0/rim-proposal", {
         params: {
           code: this.$route.query.code
         }
