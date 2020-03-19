@@ -36,9 +36,9 @@
                 :config-info="get_configT1_T2()"
                 :caption-fn="
                   v =>
-                    'EPS增长期' +
+                    '盈利成长期持续' +
                     v +
-                    '年， ROE均值回归期' +
+                    '年， ROE均值回归期持续' +
                     (rData['t1_t2'] - v) +
                     '年'
                 "
