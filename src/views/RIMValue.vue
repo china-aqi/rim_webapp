@@ -51,7 +51,7 @@
               ></RIMValueSlider>
               <RIMValueSlider
                 :config-info="get_configG1()"
-                :caption-fn="v => 'EPS增长期的增长率' + (v * 100).toFixed(1) + '%'"
+                :caption-fn="v => '成长期的EPS增长率' + (v * 100).toFixed(1) + '%'"
                 @func="getValueG1FormSon"
               ></RIMValueSlider>
               <RIMValueSlider
@@ -93,11 +93,11 @@ export default {
       if (this.rData != null) {
         return [
           {
-            des: "BPS" + this.rData["last_bps"][0],
+            des: "2018BPS" + this.rData["last_bps"][0],
             value: this.rData["last_bps"][1].toFixed(2)
           },
           {
-            des: "EPS" + this.rData["last_eps"][0],
+            des: "2018EPS" + this.rData["last_eps"][0],
             value: this.rData["last_eps"][1].toFixed(2)
           }
         ];
