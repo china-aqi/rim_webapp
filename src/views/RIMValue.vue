@@ -15,20 +15,25 @@
                 <el-col :span="12">
                   <div class="grid-content bg-purple-dark">
                     <RIMValueTable
+                            tbl-title="财报数据"
                       :tbl-data="get2018Indicator()"
                     ></RIMValueTable>
                   </div>
                 </el-col>
                 <el-col :span="12">
                   <div class="grid-content bg-purple-dark">
-                    <RIMValueTable :tbl-data="getForecast()"></RIMValueTable>
+                    <RIMValueTable tbl-title="分析师预测" :tbl-data="getForecast()"></RIMValueTable>
                   </div>
                 </el-col>
               </el-row>
             </div>
           </el-col>
           <el-col :span="5">
-            <div class="grid-content bg-purple"><RIMValueIntroduction></RIMValueIntroduction></div>
+            <div class="grid-content bg-purple">
+              <RIMValueIntroduction
+                :company-info="getCompanyInfo()"
+              ></RIMValueIntroduction>
+            </div>
           </el-col>
           <el-col :span="8">
             <div class="grid-content bg-purple" v-if="rData != null">
@@ -51,12 +56,16 @@
               ></RIMValueSlider>
               <RIMValueSlider
                 :config-info="get_configG1()"
-                :caption-fn="v => '成长期的EPS增长率' + (v * 100).toFixed(1) + '%'"
+                :caption-fn="
+                  v => '成长期的EPS增长率' + (v * 100).toFixed(1) + '%'
+                "
                 @func="getValueG1FormSon"
               ></RIMValueSlider>
               <RIMValueSlider
                 :config-info="get_configG2()"
-                :caption-fn="v => '持续经营期剩余收益增长率' + (v * 100).toFixed(1) + '%'"
+                :caption-fn="
+                  v => '持续经营期剩余收益增长率' + (v * 100).toFixed(1) + '%'
+                "
                 @func="getValueG2FormSon"
               ></RIMValueSlider>
             </div>
@@ -75,10 +84,16 @@ import RIMValueSlider from "../components/RIMValueSlider";
 import RIMValueIntroduction from "../components/RIMValueIntroduction";
 export default {
   name: "Detail",
-  components: {RIMValueIntroduction, RIMValueTable, RIMValueResult, RIMValueSlider },
+  components: {
+    RIMValueIntroduction,
+    RIMValueTable,
+    RIMValueResult,
+    RIMValueSlider
+  },
   data() {
     return {
       rData: null,
+      companyInfo: null,
       code: this.$route.query.code,
       name: this.$route.query.name,
       RValue: 0.1,
@@ -103,7 +118,6 @@ export default {
         ];
       }
     },
-
     getForecast() {
       if (this.rData != null) {
         return [
@@ -122,7 +136,6 @@ export default {
         ];
       }
     },
-
     get_configT1_T2() {
       if (this.rData != null) {
         return {
@@ -134,7 +147,6 @@ export default {
         };
       }
     },
-
     get_configR() {
       if (this.rData != null) {
         return {
@@ -146,7 +158,6 @@ export default {
         };
       }
     },
-
     get_configG1() {
       if (this.rData != null) {
         return {
@@ -158,7 +169,6 @@ export default {
         };
       }
     },
-
     get_configG2() {
       if (this.rData != null) {
         return {
@@ -170,7 +180,6 @@ export default {
         };
       }
     },
-
     getValueT1T2FormSon(data) {
       this.T1Value = data;
       this.T2Value = this.rData["t1_t2"] - this.T1Value;
@@ -184,7 +193,6 @@ export default {
     getValueG2FormSon(data) {
       this.G2Value = data;
     },
-
     getRimValue() {
       if (this.rData != null) {
         let rimParameter2018 = {
@@ -238,6 +246,17 @@ export default {
         });
         return result;
       }
+    },
+    getCompanyInfo() {
+      if (this.companyInfo != null) {
+        return {
+          market_value: this.companyInfo["market_value"],
+          industry: this.companyInfo["industry"],
+          main_business: this.companyInfo["main_business"],
+          registered_place: this.companyInfo["registered_place"],
+          history: this.companyInfo["history"][0]
+        };
+      }
     }
   },
   mounted() {
@@ -248,6 +267,13 @@ export default {
         }
       })
       .then(response => (this.rData = response.data));
+    axios
+      .get("http://192.168.0.7:8001/v1.0/a_public_company_info", {
+        params: {
+          code: this.$route.query.code
+        }
+      })
+      .then(response => (this.companyInfo = response.data));
   }
 };
 </script>
