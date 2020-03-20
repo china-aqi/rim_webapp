@@ -205,14 +205,6 @@ export default {
           g2: this.G2Value
         };
         let result = [{ year: 2018, bps: this.rData["last_bps"][1] }];
-        // below code for debug
-        rimParameter2018.g2 = 0;
-        rimParameter2018.r = 0.1;
-        rimParameter2018.industry_roe = 0.1307;
-        rimParameter2018.bps2018 = 9.63;
-        rimParameter2018.g1 = 0.15;
-        rimParameter2018.t1 = 5;
-        // above code for debug
         return this.calcRI2018(rimParameter2018, 2019, result)
           .slice(1)
           .reduce((x, y) => x + y.discounted_ri, this.rData["last_bps"][1])
