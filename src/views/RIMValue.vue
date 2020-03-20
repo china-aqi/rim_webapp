@@ -205,26 +205,42 @@ export default {
           g2: this.G2Value
         };
         let result = [{ year: 2018, bps: this.rData["last_bps"][1] }];
+        // below code for debug
+        rimParameter2018.g2 = 0;
+        rimParameter2018.r = 0.1;
+        rimParameter2018.industry_roe = 0.1307;
+        rimParameter2018.bps2018 = 9.63;
+        rimParameter2018.g1 = 0.15;
+        rimParameter2018.t1 = 5;
+        // above code for debug
         return this.calcRI2018(rimParameter2018, 2019, result)
           .slice(1)
-          .reduce((x, y) => x + y.discounted_ri, 0)
+          .reduce((x, y) => x + y.discounted_ri, this.rData["last_bps"][1])
           .toFixed(2);
       }
     },
     calcRI2018(p, year, result) {
       let eps = null;
       let last_result = result.slice(-1)[0];
+
+      // 计算eps
       if (2019 <= year && year <= 2021) {
+        // 分析师预测期
         eps = p.predicationEPS[year - 2019][1];
-      } else if (year <= 2018 + this.T1Value) {
+      } else if (year <= 2018 + p.t1) {
+        // 盈利线性成长期
         eps = last_result.eps * (1 + p.g1);
       } else if (year <= 2030) {
-        let last_roe = last_result.eps / last_result.bps;
+        // ROE均值回归期
+        let last_roe = last_result.eps / result.slice(-2)[0].bps;
         let delta_roe = (last_roe - p.industry_roe) / (2030 + 1 - year);
-        eps = (last_roe - delta_roe) * last_result.bps;
+        let roe = last_roe - delta_roe;
+        eps = roe * last_result.bps;
       }
 
       if (year <= 2030) {
+        // 盈利成长期 + ROE均值回归期
+        // 计算bps, 和剩余收益ri
         let bps = last_result.bps + eps;
         let ri = eps - last_result.bps * p.r;
         result.push({
@@ -236,13 +252,14 @@ export default {
         });
         return this.calcRI2018(p, year + 1, result);
       } else {
+        // 持续期，计算完毕后退出递归运算
         let cv = (last_result.ri * (1 + p.g2)) / (p.r - p.g2);
         result.push({
           year: 2031,
           eps: 0,
           bps: 0,
           ri: cv,
-          discounted_ri: cv / Math.pow(1 + p.r, year - 2019)
+          discounted_ri: cv / Math.pow(1 + p.r, year - 2019 - 1)
         });
         return result;
       }
