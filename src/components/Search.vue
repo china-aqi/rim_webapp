@@ -8,8 +8,11 @@
       :trigger-on-focus="false"
       @select="handleSelect"
       style="width: 400px"
-      ><el-button slot="append" icon="el-icon-search" @click="jump"></el-button
-    ></el-autocomplete>
+      ><i
+            class="el-icon-search el-input__icon"
+            slot="suffix"
+>
+    </i></el-autocomplete>
   </div>
 </template>
 
