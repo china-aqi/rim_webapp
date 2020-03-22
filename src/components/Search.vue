@@ -17,6 +17,7 @@
 import axios from "axios";
 export default {
   name: "App",
+
   data() {
     return {
       securities: [],
@@ -24,7 +25,6 @@ export default {
       state1: ""
     };
   },
-  components: {},
 
   methods: {
     querySearch(queryString, cb) {

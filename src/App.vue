@@ -6,7 +6,7 @@
           to="/"
           tag="el-button"
           style="float: left; margin-top: 10px"
-          >回到主页</router-link
+          >上市公司估值</router-link
         >
       </el-header>
       <el-main>

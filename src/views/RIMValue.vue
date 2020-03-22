@@ -72,6 +72,7 @@
           </el-col>
         </el-row>
       </div>
+      <Spread></Spread>
     </el-card>
   </div>
 </template>
@@ -82,9 +83,11 @@ import RIMValueResult from "../components/RIMValueResult";
 import RIMValueTable from "../components/RIMValueTable";
 import RIMValueSlider from "../components/RIMValueSlider";
 import RIMValueIntroduction from "../components/RIMValueIntroduction";
+import Spread from "../components/Spread";
 export default {
   name: "Detail",
   components: {
+    Spread,
     RIMValueIntroduction,
     RIMValueTable,
     RIMValueResult,
