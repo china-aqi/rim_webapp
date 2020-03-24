@@ -76,7 +76,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://192.168.0.7:8001/securities")
+      .get("http://106.15.137.244:80/securities")
       .then(this.handle_securities_4_combobox);
   }
 };

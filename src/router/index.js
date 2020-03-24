@@ -1,9 +1,9 @@
-import Vue from "vue";
+//import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import RIMValue from "../views/RIMValue";
 
-Vue.use(VueRouter);
+//Vue.use(VueRouter);
 
 const routes = [
   {

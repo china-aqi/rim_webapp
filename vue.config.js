@@ -1,7 +1,12 @@
 module.exports = {
   configureWebpack: {
     devtool: 'source-map',
-
+    externals: {
+      'vue': 'Vue',
+      'vue-router': 'VueRouter',
+      'element-ui': 'ELEMENT',
+      'Axios':'axios'
+    }
   },
   chainWebpack: config => {
     config.module.rule('md')
